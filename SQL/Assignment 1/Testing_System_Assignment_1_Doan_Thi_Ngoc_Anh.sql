@@ -1,5 +1,9 @@
+# Initialize database
+
 create database if not exists `Testing System`;
 use `Testing System`;
+
+# Add tables
 
 create table if not exists Department (
 DepartmentID int auto_increment,

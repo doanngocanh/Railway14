@@ -1,5 +1,7 @@
 use `Testing System`;
 
+# Add foreign keys into tables
+
 alter table `Account`
 add foreign key (DepartmentID) references Department(DepartmentID);
 

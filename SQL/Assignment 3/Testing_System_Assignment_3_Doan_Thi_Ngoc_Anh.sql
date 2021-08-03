@@ -1,5 +1,7 @@
 use `Testing System`;
 
+# Insert rows into table
+
 insert into Department(DepartmentName)
 values
 	(N'Marketing'),
@@ -144,8 +146,11 @@ values
 	(9, 9),
 	(10, 10);
 
+# Config SQL update mode
 
 set SQL_SAFE_UPDATES = 0;
+
+# SQL queries
 
 select * from Department;
 
