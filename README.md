@@ -1,4 +1,5 @@
 # Fullstack training course
+![](https://github.com/doanngocanh/Railway14/blob/master/static/readme_top_image.jpg=512x216)
 _Training topics_
 1. [Database System](https://github.com/doanngocanh/Railway14/tree/master/SQL)
 2. [Java Core](https://github.com/doanngocanh/Railway14)
