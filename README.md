@@ -1,5 +1,5 @@
 # Fullstack training course
-<img src="https://github.com/doanngocanh/Railway14/blob/master/images/readme_top_image.jpg" alt="readme top image" style="width:512px; height:216px;"/>
+<img src="https://github.com/doanngocanh/Railway14/blob/master/images/readme_top_image.jfif" alt="readme top image" style="width:512px; height:216px;"/>
 
 _Training topics_
 1. [Database System](https://github.com/doanngocanh/Railway14/tree/master/SQL)
