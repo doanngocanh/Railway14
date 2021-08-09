@@ -1,0 +1,372 @@
+﻿##Testing assignment 4
+#Câu 1: Viết lệnh để lấy ra danh sách nhân viên và phòng ban của họ
+
+SELECT
+	a.AccountID ,
+	a.Fullname ,
+	d.DepartmentID ,
+	d.DepartmentName
+FROM
+	account a
+INNER JOIN department d 
+ON
+	a.DepartmentID = d.DepartmentID
+
+#Câu 2: Viết lệnh để lấy ra thông tin các account được tạo sau ngày 20/12/2010
+
+SELECT
+	a.AccountID ,
+	a.Email ,
+	a.Username,
+	a.Fullname ,
+	a.CreateDate ,
+	p.PositionName ,
+	d.DepartmentName
+FROM
+	account a
+LEFT  JOIN department d 
+ON
+	a.DepartmentID = d.DepartmentID
+LEFT JOIN `position` p 
+ON
+	a.PositionID = p.PositionID
+WHERE
+	a.CreateDate > '2010-12-20'
+	
+#Câu 3: Viết lệnh để lấy ra tất cả các developer
+
+SELECT
+	a.AccountID ,
+	a.Fullname ,
+	p.PositionName
+FROM
+	account a
+INNER JOIN `position` p 
+ON
+	a.PositionID = p.PositionID
+WHERE
+	p.PositionName LIKE '%Dev%'
+
+#Câu 4: viết lệnh để lấy danh sách các phòng ban có > 3 nhân viên
+	select
+count(A.AccountID) as SL,
+	a.DepartmentID ,
+	d.DepartmentName 	
+from
+	account a
+join department d on
+	a.DepartmentID = d.DepartmentID
+group by
+	(d.DepartmentID)
+having
+	SL >= 3 
+order by
+	a.DepartmentID;
+	
+##5: Viết ra danh sách các câu hỏi được sử dụng trong đề thi nhiều nhất
+ 
+	
+SELECT * FROM question q 
+SELECT * FROM examquestion e 
+
+INSERT INTO testing_system_assignment_1.examquestion
+(ExamID, QuestionID)
+VALUES(10, 6),
+(10, 2),
+(10, 3),
+(10, 1),
+(5, 1),
+(5, 2),
+(5, 3),
+(5, 4);
+
+#Câu 6: Thống kê mỗi category Question được sử dụng trong bao nhiêu question 
+SELECT
+	c.CategoryID,
+	c.CategoryName,
+	count(q.QuestionID)
+FROM
+	categoryquestion c
+LEFT JOIN question q 
+ON
+	c.CategoryID = q.CategoryID
+GROUP BY
+	c.CategoryID
+	
+#Câu 6 lấy ra các phòng ban có nhiều nhân viên nhất
+
+INSERT INTO testing_system_assignment_1.account
+( Email, Username, Fullname, DepartmentID, PositionID, CreateDate)
+VALUES( 'ddd@gmail.com', 'yyy', 'Do Minh Do', 4, 4, '2020-09-04'),
+( 'ddd@gmail.com', 'yyy', 'Do Minh Do', 4, 4, '2020-09-04'),
+( 'ddd@gmail.com', 'yyy', 'Do Minh Do', 4, 4, '2020-09-04'),
+( 'ddd@gmail.com', 'yyy', 'Do Minh Do', 4, 4, '2020-09-04');
+
+select * from account a order by a.DepartmentID ;
+
+SELECT
+	a.DepartmentID ,
+	d.DepartmentName ,
+	count(a.DepartmentID) AS `So_Luong`
+FROM
+	account a
+JOIN
+department d ON
+	a.DepartmentID = d.DepartmentID
+GROUP BY
+	(a.DepartmentID)
+HAVING
+	`So_luong` = (
+	SELECT
+		Max(`T`.`So_Luong`)
+	FROM
+		(
+		SELECT
+			count(DepartmentID) AS `So_Luong`
+		FROM
+			`account`
+		GROUP BY
+			(DepartmentID)) AS `T` );
+
+#Câu 7: Thống kê mỗi question được sử dụng trong bao nhiêu exam
+SELECT
+	q.QuestionID ,
+	q.Content ,
+	count(e.ExamID) AS SL
+FROM
+	question q
+LEFT JOIN examquestion e 
+ON
+	q.QuestionID = e.QuestionID
+GROUP BY
+	q.QuestionID
+
+#Câu 8: Lấy ra question có nhiều câu trả lời nhất
+
+SELECT
+	q.QuestionID,
+	q.Content ,
+	count(a.AnswerID) AS `SLANS`
+FROM
+	answer a
+LEFT JOIN question q 
+ON
+	a.QuestionID = q.QuestionID
+GROUP BY
+	QuestionID
+HAVING
+	`SLANS` = (
+	SELECT
+		max(SL)
+	FROM
+		(
+		SELECT
+			count(a.AnswerID) AS SL
+		FROM
+			answer a
+		GROUP BY
+			a.QuestionID ) AS SLL)
+#Câu 9: Thống kê số lượng account trong mỗi group 
+SELECT
+	g.GroupID,
+	g2.GroupName,
+	count(a2.AccountID)AS ACC
+FROM
+	groupaccount g
+LEFT JOIN account a2 
+ON
+	a2.AccountID = g.AccountID
+LEFT JOIN `group` g2 
+ON
+	g.GroupID = g2.GroupID
+GROUP BY
+	g.GroupID
+
+#Câu 10: Tìm chức vụ có ít người nhất
+SELECT
+	p.PositionID,
+	p.PositionName,
+	count(a.AccountID) AS SLN
+FROM
+	`position` p
+LEFT JOIN account a 
+ON
+	p.PositionID = a.PositionID
+GROUP BY
+	p.PositionID
+HAVING
+	SLN = (
+	SELECT
+		min(SL) AS SLACC
+	FROM
+		(
+		SELECT
+			count(AccountID)AS SL
+		FROM
+			account a
+		GROUP BY
+			PositionID ) AS SLL)
+
+#Câu 11: Thống kê mỗi phòng ban có bao nhiêu dev, test, scrum master, PM 
+INSERT INTO testing_system_assignment_1.`position`
+(PositionID, PositionName)
+VALUES(11, 'scrum master');
+
+
+SELECT
+	d.DepartmentID,
+	d.DepartmentName,
+	p.PositionName,
+	count(p.PositionID)
+FROM
+	department d
+LEFT JOIN account a 
+ON
+	d.DepartmentID = a.DepartmentID
+LEFT JOIN `position` p ON
+	a.PositionID = p.PositionID
+GROUP BY
+	d.DepartmentID
+HAVING
+	p.PositionName IN ('scrum master', 'PM')
+	OR p.PositionName LIKE '%dev%'
+	OR p.PositionName LIKE '%test%'
+	
+#Câu 12: Lấy thông tin chi tiết của câu hỏi bao gồm: thông tin cơ bản của question, loại câu hỏi, ai là người tạo ra câu hỏi, câu trả lời là gì
+SELECT
+	q.QuestionID,
+	q.Content,
+	q.CreatorID,
+	a2.Fullname,
+	t.TypeName ,
+	c.CategoryName,
+	a.Content AS questionanswer
+FROM
+	question q
+LEFT JOIN typequestion t 
+ON
+	q.TypeID = t.TypeID
+LEFT JOIN categoryquestion c 
+ON
+	q.CategoryID = c.CategoryID
+LEFT JOIN answer a 
+ON
+	q.QuestionID = a.QuestionID
+LEFT JOIN account a2 
+ON
+	q.CreatorID = a2.AccountID
+
+#Câu 13: Lấy ra số lượng câu hỏi của mỗi loại tự luận hay trắc nghiệm
+		
+	UPDATE categoryquestion SET CategoryName = 'Trắc nghiệm'
+	WHERE CategoryID =5
+	
+SELECT
+	c.CategoryID,
+	c.CategoryName,
+	count(q.QuestionID)
+FROM
+	categoryquestion c
+LEFT JOIN question q 
+ON
+	c.CategoryID = q.CategoryID
+GROUP BY
+	CategoryID
+#Câu 14: Lấy ra group không có account nào 
+
+SELECT
+	g.GroupID ,
+	g.GroupName
+FROM
+	`group` g
+LEFT JOIN groupaccount g2 
+ON
+	g.GroupID = g2.GroupID
+WHERE
+	g2.AccountID IS NULL
+
+#Câu 15,16: Lấy ra tất cả các phòng ban không có account nào
+
+SELECT
+	d.DepartmentID ,
+	d.DepartmentName
+FROM
+	department d
+LEFT JOIN account a ON
+	d.DepartmentID = a.DepartmentID
+WHERE
+	a.AccountID IS NULL
+
+#Câu 17: a, Lấy các account thuộc nhóm thứ 1
+SELECT a.* FROM account a 
+INNER JOIN groupaccount g2 
+ON a.AccountID = g2.AccountID 
+WHERE g2.GroupID =1
+
+##b, Lấy các account thuộc nhóm thứ 2
+SELECT a.* FROM account a 
+INNER JOIN groupaccount g2 
+ON a.AccountID = g2.AccountID 
+WHERE g2.GroupID =2
+
+##c, Ghép 2 kết quả từ câu a và b sao cho không có record nào trùng nhau 
+
+SELECT DISTINCT a.* FROM account a 
+INNER JOIN groupaccount g2 
+ON a.AccountID = g2.AccountID 
+WHERE g2.GroupID =1
+
+UNION 
+SELECT DISTINCT a.* FROM account a 
+INNER JOIN groupaccount g2 
+ON a.AccountID = g2.AccountID 
+WHERE g2.GroupID =2
+
+#Câu 18: a, Lấy các group có lớn hơn 5 thành viên 
+
+
+INSERT INTO testing_system_assignment_1.groupaccount
+(GroupID, AccountID, JoinDate)
+VALUES
+(4, 6, '2020-11-05'),
+(4, 7, '2020-11-05'),
+(4, 8, '2020-11-05'),
+(4, 9, '2020-11-05'),
+(5, 1, '2020-11-05'),
+(5, 2, '2020-11-05'),
+(5, 3, '2020-11-05'),
+(5, 4, '2020-11-05'),
+(5, 5, '2020-11-05'),
+(5, 6, '2020-11-05')
+
+SELECT g.GroupID, g2.GroupName, count(g.AccountID) FROM groupaccount g 
+LEFT JOIN `group` g2 
+ON g.GroupID = g2.GroupID 
+GROUP BY g.GroupID 
+HAVING count(g.AccountID) > 5
+
+
+
+##b, Lấy các group có nhỏ hơn 7 thành viên 
+
+SELECT g.GroupID, g2.GroupName, count(g.AccountID) FROM groupaccount g 
+LEFT JOIN `group` g2 
+ON g.GroupID = g2.GroupID 
+GROUP BY g.GroupID 
+HAVING count(g.AccountID) <7
+
+##c, Ghép 2 kết quả từ câu a và b 
+
+SELECT g.GroupID, g2.GroupName, count(g.AccountID) FROM groupaccount g 
+LEFT JOIN `group` g2 
+ON g.GroupID = g2.GroupID 
+GROUP BY g.GroupID 
+HAVING count(g.AccountID) > 5
+
+UNION ALL
+
+SELECT g.GroupID, g2.GroupName, count(g.AccountID) FROM groupaccount g 
+LEFT JOIN `group` g2 
+ON g.GroupID = g2.GroupID 
+GROUP BY g.GroupID 
+HAVING count(g.AccountID) <7

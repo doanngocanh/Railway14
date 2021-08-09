@@ -1,0 +1,309 @@
+﻿
+##Question 1: Thêm ít nhất 10 record vào mỗi table
+
+insert into Department(DepartmentName)
+values
+	(N'Marketing'),
+    (N'Sale'),
+	(N'Bảo vệ'),
+    (N'Nhân sự'),
+    (N'Kỹ thuật'),
+    (N'Tài chính'),
+    (N'Phó giám đốc'),
+    (N'Giám đốc'),
+    (N'Thư ký'),
+    (N'Bán hàng');
+
+  select * from `position` p  
+  
+insert into `Position`(PositionName)
+values
+	(N'Admin'),
+	(N'PM'),
+	(N'DL'),
+	(N'Tester'),
+	(N'BE Dev'),
+	(N'SA'),
+	(N'Tech Lead'),
+	(N'Intern'),
+	(N'BA'),
+	(N'FE Dev');
+
+select * from account 
+
+insert into `Account`(Email, Username, Fullname, DepartmentID, PositionID, CreateDate)
+values
+	('aaa@gmail.com', 'aaa', N'Nguyễn Văn A', 1, 1, '2020-09-01'),
+	('bbb@gmail.com', 'bbb', N'Nguyễn Văn B', 2, 2, '2020-09-02'),
+	('ccc@gmail.com', 'ccc', N'Nguyễn Văn C', 3, 3, '2020-09-03'),
+	('ddd@gmail.com', 'ddd', N'Nguyễn Văn D', 4, 4, '2020-09-04'),
+	('eee@gmail.com', 'eee', N'Nguyễn Văn E', 5, 5, '2020-09-05'),
+	('fff@gmail.com', 'fff', N'Nguyễn Văn F', 6, 6, '2020-09-06'),
+	('ggg@gmail.com', 'ggg', N'Nguyễn Văn G', 7, 7, '2020-09-07'),
+	('hhh@gmail.com', 'hhh', N'Nguyễn Văn H', 8, 8, '2020-09-08'),
+	('iii@gmail.com', 'iii', N'Nguyễn Văn I', 9, 9, '2020-09-09'),
+	('jjj@gmail.com', 'jjj', N'Nguyễn Văn J', 10, 10, '2020-09-10'),
+    ('aaaaa@gmail.com', 'aaaaa', N'Nguyễn Văn AAA', 1, 1, '2020-09-11');
+   
+select * from `group`   
+
+insert into `Group`(GroupName, CreatorID, CreateDate)
+values
+	('AAA', 3, '2020-10-01'),
+	('BBB', 3, '2020-10-02'),
+	('CCC', 3, '2020-10-03'),
+	('DDD', 3, '2020-10-04'),
+	('EEE', 3, '2020-10-05'),
+	('FFF', 2, '2020-10-06'),
+	('GGG', 2, '2020-10-07'),
+	('HHH', 2, '2020-10-08'),
+	('III', 2, '2020-10-09'),
+	('JJJ', 2, '2020-10-10');
+    
+select * from groupaccount 
+
+insert into GroupAccount(GroupID, AccountID, JoinDate)
+values
+	(1, 1, '2020-11-01'),
+	(2, 2, '2020-11-02'),
+	(3, 3, '2020-11-03'),
+	(4, 4, '2020-11-04'),
+	(5, 5, '2020-11-05'),
+	(6, 6, '2020-11-06'),
+	(7, 7, '2020-11-07'),
+	(8, 8, '2020-11-08'),
+	(9, 9, '2020-11-09'),
+	(10, 10, '2020-11-10');
+
+select * from typequestion 
+
+insert into TypeQuestion(TypeName)
+values
+	(N'A'),
+	(N'B'),
+	(N'C'),
+	(N'D'),
+	(N'E'),
+	(N'F'),
+	(N'G'),
+	(N'H'),
+	(N'I'),
+	(N'J');
+
+select * from categoryquestion 
+
+insert into CategoryQuestion(CategoryName)
+values
+	(N'Category A'),
+	(N'Category B'),
+	(N'Category C'),
+	(N'Category D'),
+	(N'Category E'),
+	(N'Category F'),
+	(N'Category G'),
+	(N'Category H'),
+	(N'Category I'),
+	(N'Category J');
+    
+select * from question 
+
+insert into Question(Content, CategoryID, TypeID, CreatorID, CreateDate)
+values
+	('Question content A', 1, 1, 1, '2020-12-01'),
+	('Question content B', 2, 2, 2, '2020-12-02'),
+	('Question content C', 3, 3, 3, '2020-12-03'),
+	('Question content D', 4, 4, 4, '2020-12-04'),
+	('Question content E', 5, 5, 5, '2020-12-05'),
+	('Question content F', 6, 6, 6, '2020-12-06'),
+	('Question content G', 7, 7, 7, '2020-12-07'),
+	('Question content H', 8, 8, 8, '2020-12-08'),
+	('Question content I', 9, 9, 9, '2020-12-09'),
+	('Question content J', 10, 10, 10, '2020-12-10');
+    
+select * from answer a 
+
+insert into Answer(Content, QuestionID, isCorrect)
+values
+	('Answer content A', 1, true),
+	('Answer content A', 1, true),
+	('Answer content A', 1, true),
+	('Answer content A', 1, true),
+	('Answer content A', 1, true),
+	('Answer content B', 2, false),
+	('Answer content C', 3, true),
+	('Answer content D', 4, false),
+	('Answer content E', 5, true),
+	('Answer content F', 6, false),
+	('Answer content G', 7, true),
+	('Answer content H', 8, false),
+	('Answer content I', 9, true),
+	('Answer content J', 10, false);
+    
+select * from exam 
+
+insert into Exam(`Code`, Title, CategoryID, Duration, CreatorID, CreateDate)
+values
+	('001', 'Title A', 1, '01:30:00', 1, '2020-12-11'),
+	('002', 'Title B', 2, '01:30:00', 2, '2020-12-12'),
+	('003', 'Title C', 3, '01:30:00', 3, '2020-12-13'),
+	('004', 'Title D', 4, '01:30:00', 4, '2020-12-14'),
+	('005', 'Title E', 5, '01:30:00', 5, '2020-12-15'),
+	('006', 'Title F', 6, '01:30:00', 6, '2020-12-16'),
+	('007', 'Title G', 7, '01:30:00', 7, '2020-12-17'),
+	('008', 'Title H', 8, '01:30:00', 8, '2020-12-18'),
+	('009', 'Title I', 9, '01:30:00', 9, '2020-12-19'),
+	('010', 'Title J', 10, '01:30:00', 10, '2020-12-20');
+
+
+insert into ExamQuestion(ExamID, QuestionID)
+values
+	(1, 1),
+	(2, 2),
+	(3, 3),
+	(4, 4),
+	(5, 5),
+	(6, 6),
+	(7, 7),
+	(8, 8),
+	(9, 9),
+	(10, 10);
+
+##Question 2: Lấy ra tất cả các phòng ban 
+select * from Department;
+
+##Question 3: Lấy ra id phòng ban Sale 
+select
+	Department.DepartmentID
+from
+	Department
+where
+	Department.DepartmentName = 'Sale';
+
+##Question 4: Lấy ra thông tin của account có full name dài nhất
+select
+	*
+from
+	`Account`
+order by
+	length(`Account`.Fullname) desc
+limit 1;
+
+##Question 5: Lấy ra thông tin của account có full name dài nhất và thuộc phòng ban có account id = 3
+select
+	*
+from
+	`Account`
+where
+	`Account`.DepartmentID = 3
+order by
+	length(`Account`.Fullname) desc
+limit 1;
+
+##Question 6: Lấy ra tên group đã tham gia trước ngày 20/12/2019
+select
+	`Group`.GroupName
+from
+	`Group`
+where
+	`Group`.CreateDate < '2019-12-20';
+
+#Question 7: Lấy ra ID của question có >=4 câu trả lời
+select
+	QuestionA.QuestionID
+from
+	(
+	select
+		QuestionID,
+		count(*) as SL
+	from
+		answer
+	group by
+		QuestionID
+	having
+		SL >= 4) as QuestionA ;
+
+##Question 8:Lấy ra các mã đề thi có thời gian thi >=60 phút và được tạo trước ngày 20/12/2019
+	
+	INSERT INTO testing_system_assignment_1.exam
+( Code, Title, CategoryID, Duration, CreatorID, CreateDate)
+VALUES( '008', 'Title H', 8, '01:30:00', 8, '2019-12-18'),
+( '008', 'Title H', 8, '01:30:00', 8, '2018-12-18');
+
+select
+	exam.ExamID
+from
+	exam
+where
+	exam.Duration >= '01:00:00'
+	and exam.CreateDate < '2019-12-20';
+
+
+##Question 9: Lấy ra 5 group được tạo gần nhất
+select
+	*
+from
+	`group`
+order by
+	CreateDate desc
+limit 5;
+
+##Question 10: Đếm số nhân viên department có id= 2
+select
+	count(AccountID)
+from
+	account
+where
+	DepartmentID = 2
+	
+##Question 11: Lấy ra nhân viên có tên bắt đầu bằng D và kết thúc bằng o 
+
+insert into `Account`(Email, Username, Fullname, DepartmentID, PositionID, CreateDate)
+values
+	('aaa@gmail.com', 'mmm', N'Doan Văn Ao', 1, 1, '2020-09-01'),
+	('bbb@gmail.com', 'nnn', N'Doan Nguyen Ao', 2, 2, '2020-09-02'),
+	('ccc@gmail.com', 'zzz', N'Doan Van Dao', 3, 3, '2020-09-03'),
+	('ddd@gmail.com', 'yyy', N'Do Minh Do', 4, 4, '2020-09-04');
+	
+select * from account where Fullname like 'D%o';
+
+##Question 12: Xóa tất cả các exam được tạo trước ngày 20/12/2019
+
+delete from exam where CreateDate < '2019-12-20';
+
+#Question 13: Xóa tất cả các question có nội dung được bắt đầu bằng chữ "câu hỏi"
+
+select * from question;
+
+INSERT INTO `question`
+( Content, CategoryID, TypeID, CreatorID, CreateDate)
+values
+( N'câu h?i ABC' , 3, 3, 3, '2020-12-03'),
+( N'câu h?i ABCD' , 3, 3, 3, '2020-12-03'),
+( N'câu h?i ABCDE' , 3, 3, 3, '2020-12-03'),
+( N'Câu h?i ABC' , 3, 3, 3, '2020-12-03'),
+( N'Câu H?i ABC' , 3, 3, 3, '2020-12-03');
+
+delete from question where content like 'câu hỏi%';
+
+##Question 14: Update thông tin c?a account có id=5 thành tên "Nguyễn Bá Lộc" và email thành loc.nguyenba@vti.com.vn
+
+update
+	account
+set
+	Fullname = 'Nguyễn Bá Lộc',
+	Email = 'loc.nguyenba@vti.com.vn'
+where
+	AccountID = 5;
+
+##Question 15: Update account có id=5 sẽ thuộc group có id=4
+
+update
+	groupaccount
+set
+	groupID = 4
+where
+	accountID = 5;
+
+
+select * from groupaccount 
+
