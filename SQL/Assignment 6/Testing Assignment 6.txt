@@ -1,0 +1,69 @@
+﻿
+##Câu 1:Tạo store để người dùng nhập vào tên phòng ban và in ra tất cả các account thuộc phòng ban đó 
+
+DROP PROCEDURE IF EXISTS get_account_in_department;
+delimiter $$
+CREATE PROCEDURE get_account_in_department(IN department_name VARCHAR(50))
+BEGIN 
+	SELECT D.DepartmentID, D.DepartmentName, A.AccountID, A.Username, A.Fullname, A.Email FROM department AS D
+    LEFT JOIN `account` AS A
+    ON D.DepartmentID = A.DepartmentID
+    WHERE D.DepartmentName LIKE department_name;
+END $$
+delimiter ;
+CALL get_account_in_department('%Marketing%');
+
+##Câu 2: Tạo store để in ra số lượng account trong mỗi group 
+DROP PROCEDURE IF EXISTS amount_account_in_group;
+DELIMITER $$
+CREATE PROCEDURE amount_account_in_group ()
+BEGIN 
+	SELECT G.GroupID, G.GroupName, COUNT(A.AccountID) AS `SL_ACCOUNT` FROM `group` AS G
+	LEFT JOIN groupaccount AS GA
+	ON G.GroupID = GA.GroupID
+	LEFT JOIN `account` AS A
+	ON GA.AccountID = A.AccountID
+	GROUP BY G.GroupID;
+	END $$
+DELIMITER ; 
+
+CALL amount_account_in_group ()
+
+##Câu 3: Tạo store để thống kê mỗi type question có bao nhiêu question được tạo trong tháng hiện tại 
+DROP PROCEDURE IF EXISTS THONG_KE_TYPE_QUESTION_CURRENT_MONTH
+DELIMITER $$
+CREATE PROCEDURE THONG_KE_TYPE_QUESTION_CURRENT_MONTH ()
+BEGIN 
+		SELECT TQ.TypeID, TQ.TypeName, COUNT(Q.QuestionID) FROM typequestion AS TQ
+        LEFT JOIN question AS Q
+        ON TQ.TypeID = Q.TypeID
+        WHERE Q.CreateDate = CURRENT_DATE()
+        GROUP BY TQ.TypeID;
+END $$
+DELIMITER ;
+CALL THONG_KE_TYPE_QUESTION_CURRENT_MONTH ()
+
+##Câu 4: Tạo store để trả ra id của type question của nhiều câu hỏi nhất
+DROP PROCEDURE IF EXISTS TYPE_NHIEU_CAU_HOI;
+DELIMITER $$
+CREATE PROCEDURE TYPE_NHIEU_CAU_HOI(OUT IDTYPE INT)
+BEGIN 
+	WITH CTE_SOlUONGQUESTION AS (
+    SELECT count(TypeID) AS SL
+    FROM question
+    group by TypeID
+        )
+		SELECT TQ.TypeID INTO IDTYPE, TQ.TypeName, COUNT(Q.QuestionID) FROM typequestion AS TQ
+		LEFT JOIN question AS Q
+		ON TQ.TypeID = Q.TypeID
+		GROUP BY TQ.TypeID
+        HAVING COUNT(TQ.TypeID) = (SELECT MAX(sl) FROM CTE_SOlUONGQUESTION);
+END $$
+DELIMITER ;
+
+SET @ID = 0
+CALL TYPE_NHIEU_CAU_HOI(@ID)
+SELECT @ID
+
+
+
